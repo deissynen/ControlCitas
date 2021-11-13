@@ -1,13 +1,15 @@
 import express from 'express';
+import citasRoutes from './routers/citas';
 
 const app = express();
 const port = 3000;
 
-app.get('/', (req, res) =>{
-    res.send('prueba de servidor')
-})
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+
+citasRoutes(app);
 
 app.listen(port, ()=>{
-    return console.log('Servidor Corriendo Sober El Puerto ${port}')
+    return console.log(`Servidor Corriendo Sobre El Puerto ${port}`)
 
 })
