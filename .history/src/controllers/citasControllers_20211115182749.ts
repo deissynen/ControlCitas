@@ -3,11 +3,12 @@ import executeQuery from "../services/mysql.service"
 
 const agendarCita = (req, res) => { res.send('agendar Citas desde el controlador') }
 const consultarCita = async (req, res) => {
-    const response = executeQuery('SELECT * FROM tbl_citas').then((response) => {
-        res.json(response);
-    }).catch((error) => {
-        res.status(500).send(error);
-    })
+    try {
+        const response = executeQuery('SELECT * FROM mydb.tbl_citas');
+        res.send(response);
+    } catch (error) {
+        response.status(500).send(error);
+    }
 
 }
 const consultarCitaid = (req, res) => { res.send('consultar Cita desde el controlador') }
