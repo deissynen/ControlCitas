@@ -55,15 +55,9 @@ const reagendarCita = async (req, res) => {
     //res.send('reagendar Citas desde el controlador')
 }
 
-const cancelarCita = async (req, res) => {
+const cancelarCita = (req, res) => {
     try {
-        const response = await executeQuery(`DELETE FROM tbl_citas  WHERE cta_id = ${req.params.id} `);
-        console.log(response);
-        if (response.affectedRows > 0) {
-            res.json({ message: 'deleted' });
-        } else {
-            res.status(404).json({ message: `No existe registro con ID:response.insertId ${req.params.id}` })
-        }
+        const response = executeQuery(`DELETE FROM tbl_citas  WHERE cta_id = ${req.params.id} `);
     } catch (error) {
         console.log(error);
         res.status(500).send(error);
@@ -72,8 +66,7 @@ const cancelarCita = async (req, res) => {
 }
 export { agendarCita, consultarCita, consultarCitaid, reagendarCita, cancelarCita }
 
-/* Datos para probar el insert
-{
+/*{
     "cta_fecharegistro" : "2021-11-20 18:50:00",
     "cta_estado" : "1",
     "tbl_motivosconsulta_mot_id ": "1",

@@ -11,11 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 citasRoutes(app);
 usuariosRoutes(app);
 
-app.listen(port, () => {
-    return console.log(`Servidor Corriendo Sobre El Puerto ${port}`)
-})
 
-/*
 app.get('/prueba', async (req, res, next) => {
     const datos = {
         nombre: 'Deissy',
@@ -31,4 +27,8 @@ app.get('/prueba', async (req, res, next) => {
     const { apellido, nombre } = datos;
     res.status(200).json({ datos: newDatos });
 });
-*/
+
+app.listen(port, () => {
+    return console.log(`Servidor Corriendo Sobre El Puerto ${port}`)
+
+})
