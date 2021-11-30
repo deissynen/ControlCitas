@@ -12,24 +12,24 @@ const agendarCita = async (req, res) => {
     }
 }
 const consultarCita = async (req, res) => {
-    try {
-        const response = await executeQuery(`SELECT c.*, p.* FROM mydb.tbl_citas c, tbl_paciente p where c.tbl_paciente_per_id = p.per_id`);
-        const data = {
-            message: `${response.length} datos encontrados`,
-            datos: response.length > 0 ? response : null
-        }
-        res.json(data);
-    } catch (error) {
-        console.log(error);
-        res.status(500).send(error);
-    }
-    /* const response = executeQuery(`SELECT * FROM tbl_citas`).then((response) => {
+    /* try {
+         const response = await executeQuery(`SELECT * FROM tbl_citas`);
+         const data = {
+             message: `${response.length} datos encontrados`,
+             datos: response.length > 0 ? response : null
+         }
+         res.json(data);
+     } catch (error) {
+         console.log(error);
+         res.status(500).send(error);
+     }*/
+    const response = executeQuery(`SELECT * FROM tbl_citas`).then((response) => {
         res.json(response);
     }).catch((error) => {
         console.log(error);
         res.status(500).send(error);
     })
-*/
+
 }
 const consultarCitaid = (req, res) => {
     const { id } = req.params;
@@ -47,7 +47,7 @@ const consultarCitaid = (req, res) => {
 const reagendarCita = async (req, res) => {
     const { cta_fecharegistro, cta_estado, mot_id, con_id, cta_fechaInicio, cta_fechaFin, per_id } = req.body;
     try {
-        const response = await executeQuery(`UPDATE tbl_citas SET cta_fecharegistro = '${cta_fecharegistro}', cta_estado = '${cta_estado}', tbl_motivosconsulta_mot_id = '${mot_id}', tbl_consultorio_con_id = '${con_id}', cta_fechaInicio = '${cta_fechaInicio}', cta_fechaFin = '${cta_fechaFin}', tbl_paciente_per_id= '${per_id}' WHERE cta_id = ${req.params.id}`);
+        const response = await executeQuery(`UPDATE tbl_citas SET cta_fecharegistro = '${to_date(cta_fecha)}', cta_estado = '${cta_estado}', tbl_motivosconsulta_mot_id = '${mot_id}', tbl_consultorio_con_id = '${con_id}', cta_fechaInicio = '${cta_fechaInicio}', cta_fechaFin = '${cta_fechaFin}', tbl_paciente_per_id= '${per_id}' WHERE cta_id = ${req.params.id}`);
         console.log(response);
         if (response.affectedRows > 0) {
             res.json({ message: 'updated' });

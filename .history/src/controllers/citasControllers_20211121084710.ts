@@ -12,24 +12,13 @@ const agendarCita = async (req, res) => {
     }
 }
 const consultarCita = async (req, res) => {
-    try {
-        const response = await executeQuery(`SELECT c.*, p.* FROM mydb.tbl_citas c, tbl_paciente p where c.tbl_paciente_per_id = p.per_id`);
-        const data = {
-            message: `${response.length} datos encontrados`,
-            datos: response.length > 0 ? response : null
-        }
-        res.json(data);
-    } catch (error) {
-        console.log(error);
-        res.status(500).send(error);
-    }
-    /* const response = executeQuery(`SELECT * FROM tbl_citas`).then((response) => {
+    const response = executeQuery(`SELECT * FROM tbl_citas`).then((response) => {
         res.json(response);
     }).catch((error) => {
         console.log(error);
         res.status(500).send(error);
     })
-*/
+
 }
 const consultarCitaid = (req, res) => {
     const { id } = req.params;
@@ -74,6 +63,7 @@ const cancelarCita = async (req, res) => {
         console.log(error);
         res.status(500).send(error);
     }
+    //res.send('cancelar Citas desde el controlador')
 }
 export { agendarCita, consultarCita, consultarCitaid, reagendarCita, cancelarCita }
 
